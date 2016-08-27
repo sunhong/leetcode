@@ -1,6 +1,6 @@
 /*
 The Trips table holds all taxi trips. Each trip has a unique Id, while Client_Id and Driver_Id are both foreign keys 
-to the Users_Id at the Users table. Status is an ENUM type of (¡®completed¡¯, ¡®cancelled_by_driver¡¯, ¡®cancelled_by_client¡¯).
+to the Users_Id at the Users table. Status is an ENUM type of ('completed', 'cancelled_by_driver', 'cancelled_by_client').
 
 +----+-----------+-----------+---------+--------------------+----------+
 | Id | Client_Id | Driver_Id | City_Id |        Status      |Request_at|
@@ -16,7 +16,7 @@ to the Users_Id at the Users table. Status is an ENUM type of (¡®completed¡¯
 | 9  |     3     |    10     |    12   |     completed      |2013-10-03| 
 | 10 |     4     |    13     |    12   | cancelled_by_driver|2013-10-03|
 +----+-----------+-----------+---------+--------------------+----------+
-The Users table holds all users. Each user has an unique Users_Id, and Role is an ENUM type of (¡®client¡¯, ¡®driver¡¯, ¡®partner¡¯).
+The Users table holds all users. Each user has an unique Users_Id, and Role is an ENUM type of ('client', 'driver', 'partner').
 
 +----------+--------+--------+
 | Users_Id | Banned |  Role  |
