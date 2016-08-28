@@ -1,5 +1,6 @@
 /*
-The Trips table holds all taxi trips. Each trip has a unique Id, while Client_Id and Driver_Id are both foreign keys to the Users_Id at the Users table. Status is an ENUM type of (¡®completed¡¯, ¡®cancelled_by_driver¡¯, ¡®cancelled_by_client¡¯).
+The Trips table holds all taxi trips. Each trip has a unique Id, while Client_Id and Driver_Id are both foreign keys 
+to the Users_Id at the Users table. Status is an ENUM type of ('completed', 'cancelled_by_driver', 'cancelled_by_client').
 
 +----+-----------+-----------+---------+--------------------+----------+
 | Id | Client_Id | Driver_Id | City_Id |        Status      |Request_at|
@@ -15,7 +16,7 @@ The Trips table holds all taxi trips. Each trip has a unique Id, while Client_Id
 | 9  |     3     |    10     |    12   |     completed      |2013-10-03| 
 | 10 |     4     |    13     |    12   | cancelled_by_driver|2013-10-03|
 +----+-----------+-----------+---------+--------------------+----------+
-The Users table holds all users. Each user has an unique Users_Id, and Role is an ENUM type of (¡®client¡¯, ¡®driver¡¯, ¡®partner¡¯).
+The Users table holds all users. Each user has an unique Users_Id, and Role is an ENUM type of ('client', 'driver', 'partner').
 
 +----------+--------+--------+
 | Users_Id | Banned |  Role  |
@@ -29,7 +30,8 @@ The Users table holds all users. Each user has an unique Users_Id, and Role is a
 |    12    |   No   | driver |
 |    13    |   No   | driver |
 +----------+--------+--------+
-Write a SQL query to find the cancellation rate of requests made by unbanned clients between Oct 1, 2013 and Oct 3, 2013. For the above tables, your SQL query should return the following rows with the cancellation rate being rounded to two decimal places.
+Write a SQL query to find the cancellation rate of requests made by unbanned clients between Oct 1, 2013 and Oct 3, 2013. 
+For the above tables, your SQL query should return the following rows with the cancellation rate being rounded to two decimal places.
 
 +------------+-------------------+
 |     Day    | Cancellation Rate |
@@ -41,8 +43,10 @@ Write a SQL query to find the cancellation rate of requests made by unbanned cli
 */
 
 select distinct Request_at as Day, 
-cast( (select count(*) from Trips t1,Users u1 where t1.Client_Id=u1.Users_Id and u1.Banned='No' and t1.Request_at=t.Request_at and t1.Status in ('cancelled_by_client', 'cancelled_by_driver') ) /
-(select count(*) from Trips t2,Users u2 where t2.Client_Id=u2.Users_Id and u2.Banned='No' and t2.Request_at=t.Request_at) as DECIMAL(3,2))
+cast( (select count(*) from Trips t1,Users u1 where t1.Client_Id=u1.Users_Id and u1.Banned='No' and t1.Request_at=t.Request_at 
+and t1.Status in ('cancelled_by_client', 'cancelled_by_driver') ) /
+(select count(*) from Trips t2,Users u2 where t2.Client_Id=u2.Users_Id and u2.Banned='No' and t2.Request_at=t.Request_at) 
+as DECIMAL(3,2))
 as 'Cancellation Rate'
 from  Trips t
 where t.Request_at in (STR_TO_DATE('2013-10-01','%Y-%m-%d'),STR_TO_DATE('2013-10-02','%Y-%m-%d'),STR_TO_DATE('2013-10-03','%Y-%m-%d'))
